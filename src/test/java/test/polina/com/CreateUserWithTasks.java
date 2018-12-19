@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static test.polina.com.Utils.*;
 
 public class CreateUserWithTasks {
@@ -35,17 +36,24 @@ public class CreateUserWithTasks {
     }
 
     @Test
-    public void shouldRespondWithOk() {
-        String requestBody = Utils.getResourceAsString("request-bodies/requiredFields");
-        requestBody = String.format(requestBody, Utils.getRandomEmail(), Utils.getRandomName());
+    public void shouldRespondWithErrorForInvalidEmail() {
+        String requestBody = Utils.getResourceAsString("request-bodies/invalidEmail");
 
         Utils.createUserWithTask(requestBody)
                 .then()
-                .log()
-                .all()
                 .statusCode(200)
-                .assertThat()
-                .body(matchesJsonSchemaInClasspath("json-schemas/requiredFields"));
+                .body("type", equalTo("error"))
+                .body("message", equalTo("email неправильный!"));
+    }
 
+    @Test
+    public void shouldRespondWithErrorForAlreadyRegisteredEmail() {
+        String requestBody = Utils.getResourceAsString("request-bodies/duplicateEmail");
+
+        Utils.createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Пользователь с таким email уже существует "));
     }
 }
