@@ -1,80 +1,91 @@
 {
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "date_updated": {
-      "type": "object",
-      "properties": {
-        "sec": {
-          "type": "integer"
-        },
-        "usec": {
-          "type": "integer"
-        }
-      }
-    },
-    "role": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "date_register": {
-      "type": "object",
-      "properties": {
-        "sec": {
-          "type": "integer"
-        },
-        "usec": {
-          "type": "integer"
-        }
-      }
-    },
-    "date": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
-    },
-    "by_user": {
-      "type": "string"
-    },
-    "companies": {
-      "oneOf": [
-        {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "integer"
-              }
-            }
-          }
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "tasks": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "id": {
-            "type": "integer"
-          }
-        }
-      }
-    }
-  }
+	"type": "object",
+	"required": [
+		"name",
+		"date_updated",
+		"role",
+		"date_register",
+		"date",
+		"email",
+		"by_user",
+		"companies",
+		"tasks"
+	],
+	"name": {
+		"type": "string"
+	},
+	"properties": {
+		"date_updated": {
+			"type": "object",
+			"properties": {
+				"sec": {
+					"type": "integer"
+				},
+				"usec": {
+					"type": "integer"
+				}
+			}
+		},
+		"role": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"date_register": {
+			"type": "object",
+			"properties": {
+				"sec": {
+					"type": "integer"
+				},
+				"usec": {
+					"type": "integer"
+				}
+			}
+		},
+		"date": {
+			"type": "string"
+		},
+		"email": {
+			"type": "string"
+		},
+		"by_user": {
+			"type": "string"
+		},
+		"companies": {
+			"oneOf": [
+				{
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"id": {
+								"type": "integer"
+							}
+						}
+					}
+				},
+				{
+					"type": "null"
+				}
+			]
+		},
+		"tasks": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"id": {
+						"type": "integer"
+					}
+				}
+			}
+		}
+	}
 }

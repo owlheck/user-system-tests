@@ -1,5 +1,32 @@
 {
 	"type": "object",
+	"required": [
+		"name",
+		"name1",
+		"hobby",
+		"surname1",
+		"fathername1",
+		"cat",
+		"dog",
+		"parrot",
+		"cavy",
+		"hamster",
+		"squirrel",
+		"phone",
+		"adres",
+		"gender",
+		"date_start",
+		"date_updated",
+		"birthday",
+		"role",
+		"date_register",
+		"date",
+		"email",
+		"by_user",
+		"companies",
+		"tasks",
+		"inn"
+	],
 	"properties": {
 		"name": {
 			"type": "string"
@@ -38,6 +65,9 @@
 			"type": "string"
 		},
 		"adres": {
+			"type": "string"
+		},
+		"inn": {
 			"type": "string"
 		},
 		"gender": {

@@ -52,8 +52,6 @@ public class CheckTasks extends Base{
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
-                .log()
-                .all()
                 .body("type", equalTo("error"))
                 .body("message", equalTo("tasks.description не может быть пустым"));
     }
