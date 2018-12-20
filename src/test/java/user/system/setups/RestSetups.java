@@ -1,4 +1,4 @@
-package test.polina.com;
+package user.system.setups;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

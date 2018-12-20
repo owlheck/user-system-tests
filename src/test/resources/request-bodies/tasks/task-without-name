@@ -1,0 +1,9 @@
+{
+	"email": "%s",
+	"name": "%s",
+	"tasks": [
+		{
+			"description": "Description"
+		}
+	]
+}

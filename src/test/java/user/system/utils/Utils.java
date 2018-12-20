@@ -1,4 +1,4 @@
-package test.polina.com;
+package user.system.utils;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;

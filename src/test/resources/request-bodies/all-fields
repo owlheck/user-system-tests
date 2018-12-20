@@ -1,0 +1,31 @@
+{
+	"email": "%s",
+	"name": "%s",
+	"tasks": [
+		{
+			"title": "First Task",
+			"description": "Description for first task"
+		},
+		{
+			"title": "Second Task",
+			"description": "description for second task"
+		}
+	],
+	"companies": [1285, 1289, 1290],
+	"hobby": "PS Gaming, swimming",
+	"adres": "Address 1",
+	"name1": "TestName",
+	"surname1": "TestSurname",
+	"fathername1": "TestFathername",
+	"cat": "TestCat",
+	"dog": "TestDog",
+	"parrot": "TestParrot",
+	"cavy": "TestCavy",
+	"hamster": "TestHamster",
+	"squirrel": "TestSquirrel",
+	"phone": "8-(800)-20-12",
+	"inn": "123456789012",
+	"gender": "m",
+	"birthday": "20.12.1993",
+	"date_start": "20.12.2018"
+}

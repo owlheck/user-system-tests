@@ -1,4 +1,4 @@
-package test.polina.com;
+package user.system.config;
 
 public class Config {
     public static final String BASE_URI = "http://users.bugred.ru";
