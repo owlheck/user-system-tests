@@ -1,7 +1,0 @@
-{
-  "email": "%s",
-  "tasks": [{
-    "title": "First Task",
-    "description": "Description for first task"
-  }]
-}

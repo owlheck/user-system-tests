@@ -1,6 +1,5 @@
 {
-	"email": "%s",
-	"name": "%s",
+	"name": "name",
 	"tasks": [
 		{
 			"title": "First Task",

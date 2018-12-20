@@ -5,10 +5,6 @@
 		{
 			"title": "First Task",
 			"description": "Description for first task"
-		},
-		{
-			"title": "Second Task",
-			"description": "description for second task"
 		}
 	]
 }

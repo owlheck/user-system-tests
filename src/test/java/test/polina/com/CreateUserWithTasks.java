@@ -1,35 +1,33 @@
 package test.polina.com;
 
+import com.github.javafaker.Faker;
 import org.junit.Before;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static test.polina.com.Config.*;
+import static test.polina.com.RestSetups.*;
 import static test.polina.com.Utils.*;
+
 
 public class CreateUserWithTasks {
     int[] companyIds = {1285, 1289, 1290, 1291, 1292};
+    private static final Faker FAKER = new Faker();
 
     @Before
     public void before() {
-        setBaseURI("http://users.bugred.ru");
-        setBasePath("/tasks/rest");
+        setBaseURI(BASE_URI);
+        setBasePath(BASE_PATH);
     }
 
     @Test
     public void shouldRespondWithOkAndMatchSchema() {
         String requestBody = getResourceAsString("request-bodies/requiredFields");
-        requestBody = String.format(requestBody, Utils.getRandomEmail(), Utils.getRandomName());
+        requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
-        given()
-                .contentType("application/json")
-                .body(requestBody)
-        .when()
-                .post("/createuserwithtasks")
+        createUserWithTask(requestBody)
         .then()
-                .log()
-                .all()
                 .statusCode(200)
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("json-schemas/requiredFields"));
@@ -37,7 +35,7 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForInvalidEmail() {
-        String requestBody = getResourceAsString("request-bodies/invalidEmail");
+        String requestBody = getResourceAsString("request-bodies/email/invalid");
 
         createUserWithTask(requestBody)
                 .then()
@@ -48,7 +46,7 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForAlreadyRegisteredEmail() {
-        String requestBody = getResourceAsString("request-bodies/duplicateEmail");
+        String requestBody = getResourceAsString("request-bodies/email/duplicate");
         String email = getRandomEmail();
         requestBody = String.format(requestBody, email, getRandomName());
 
@@ -67,7 +65,7 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForRequestWithoutEmail() {
-        String requestBody = Utils.getResourceAsString("request-bodies/withoutEmail");
+        String requestBody = Utils.getResourceAsString("request-bodies/email/without");
 
         createUserWithTask(requestBody)
                 .then()
@@ -78,32 +76,29 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForRequestWithIncorrectName() {
-        String requestBody = getResourceAsString("request-bodies/invalidName");
+        String requestBody = getResourceAsString("request-bodies/name/invalid");
         requestBody = String.format(requestBody, getRandomEmail());
 
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
                 .body("type", equalTo("error"))
-                .body("message", equalTo("Значение 23 некорректное,должна быть только строка"));
+                .body("message", equalTo(" Значение 23 некорректное,должна быть только строка"));
     }
 
     @Test
     public void shouldRespondWithErrorForRequestWithAlreadyRegisteredName() {
-        String requestBody = getResourceAsString("request-bodies/duplicateName");
+        String requestBody = getResourceAsString("request-bodies/name/duplicate");
         String name = getRandomName();
         requestBody = String.format(requestBody, getRandomEmail(), name);
 
-        System.out.println(requestBody);
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
                 .body("name", equalTo(name));
 
-        requestBody = getResourceAsString("request-bodies/duplicateName");
+        requestBody = getResourceAsString("request-bodies/name/duplicate");
         requestBody = String.format(requestBody, getRandomEmail(), name);
-
-        System.out.println(requestBody);
 
         createUserWithTask(requestBody)
                 .then()
@@ -114,7 +109,7 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForRequestWithoutName() {
-        String requestBody = getResourceAsString("request-bodies/withoutName");
+        String requestBody = getResourceAsString("request-bodies/name/without");
         requestBody = String.format(requestBody, getRandomEmail());
 
         createUserWithTask(requestBody)
@@ -122,5 +117,25 @@ public class CreateUserWithTasks {
                 .statusCode(200)
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Параметр name является обязательным!"));
+    }
+
+    @Test
+    public void shouldRespondWithErrorForSixTasks() {
+        String requestBody = getResourceAsString("request-bodies/tasks/unacceptable-count");
+        requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Вы не можете добавить больше 5 тасков"));
+    }
+
+    private String getRandomEmail() {
+        return FAKER.internet().emailAddress();
+    }
+
+    private String getRandomName() {
+        return FAKER.address().firstName();
     }
 }
