@@ -19,7 +19,7 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithOkAndMatchSchema() {
-        String requestBody = Utils.getResourceAsString("request-bodies/requiredFields");
+        String requestBody = getResourceAsString("request-bodies/requiredFields");
         requestBody = String.format(requestBody, Utils.getRandomEmail(), Utils.getRandomName());
 
         given()
@@ -37,9 +37,9 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForInvalidEmail() {
-        String requestBody = Utils.getResourceAsString("request-bodies/invalidEmail");
+        String requestBody = getResourceAsString("request-bodies/invalidEmail");
 
-        Utils.createUserWithTask(requestBody)
+        createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
                 .body("type", equalTo("error"))
@@ -48,12 +48,79 @@ public class CreateUserWithTasks {
 
     @Test
     public void shouldRespondWithErrorForAlreadyRegisteredEmail() {
-        String requestBody = Utils.getResourceAsString("request-bodies/duplicateEmail");
+        String requestBody = getResourceAsString("request-bodies/duplicateEmail");
+        String email = getRandomEmail();
+        requestBody = String.format(requestBody, email, getRandomName());
 
-        Utils.createUserWithTask(requestBody)
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("email", equalTo(email));
+
+        createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Пользователь с таким email уже существует "));
+
+    }
+
+    @Test
+    public void shouldRespondWithErrorForRequestWithoutEmail() {
+        String requestBody = Utils.getResourceAsString("request-bodies/withoutEmail");
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Параметр email является обязательным!"));
+    }
+
+    @Test
+    public void shouldRespondWithErrorForRequestWithIncorrectName() {
+        String requestBody = getResourceAsString("request-bodies/invalidName");
+        requestBody = String.format(requestBody, getRandomEmail());
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Значение 23 некорректное,должна быть только строка"));
+    }
+
+    @Test
+    public void shouldRespondWithErrorForRequestWithAlreadyRegisteredName() {
+        String requestBody = getResourceAsString("request-bodies/duplicateName");
+        String name = getRandomName();
+        requestBody = String.format(requestBody, getRandomEmail(), name);
+
+        System.out.println(requestBody);
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("name", equalTo(name));
+
+        requestBody = getResourceAsString("request-bodies/duplicateName");
+        requestBody = String.format(requestBody, getRandomEmail(), name);
+
+        System.out.println(requestBody);
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo(String.format(" имя %s уже есть в БД", name)));
+    }
+
+    @Test
+    public void shouldRespondWithErrorForRequestWithoutName() {
+        String requestBody = getResourceAsString("request-bodies/withoutName");
+        requestBody = String.format(requestBody, getRandomEmail());
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Параметр name является обязательным!"));
     }
 }

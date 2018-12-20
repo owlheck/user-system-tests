@@ -1,6 +1,6 @@
 {
   "email": "%s",
-  "name": "%s",
+  "name": 23,
   "tasks": [{
     "title": "First Task",
     "description": "Description for first task"
