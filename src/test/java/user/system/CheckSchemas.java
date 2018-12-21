@@ -27,8 +27,6 @@ public class CheckSchemas extends Base{
 
         createUserWithTask(requestBody)
                 .then()
-                .log()
-                .all()
                 .statusCode(200)
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("json-schemas/all-fields"));

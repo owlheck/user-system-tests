@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static user.system.setups.RestSetups.createUserWithTask;
 import static user.system.utils.Utils.getResourceAsString;
 
+
 public class CheckCompanies extends Base {
     @Test
     public void shouldRespondWithErrorForMoreThanThreeCompanies() {
