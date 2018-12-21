@@ -9,9 +9,11 @@ import static user.system.utils.Utils.getResourceAsString;
 
 
 public class CheckEmail extends Base {
+    private static final String PATH_TO_JSON = "request-bodies/email/";
+
     @Test
     public void shouldRespondWithErrorForInvalidEmail() {
-        String requestBody = getResourceAsString("request-bodies/email/invalid");
+        String requestBody = getResourceAsString(PATH_TO_JSON +"invalid");
 
         createUserWithTask(requestBody)
                 .then()
@@ -22,7 +24,7 @@ public class CheckEmail extends Base {
 
     @Test
     public void shouldRespondWithErrorForAlreadyRegisteredEmail() {
-        String requestBody = getResourceAsString("request-bodies/email/duplicate");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "duplicate");
         String email = getRandomEmail();
         requestBody = String.format(requestBody, email, getRandomName());
 
@@ -41,7 +43,7 @@ public class CheckEmail extends Base {
 
     @Test
     public void shouldRespondWithErrorForRequestWithoutEmail() {
-        String requestBody = Utils.getResourceAsString("request-bodies/email/without");
+        String requestBody = Utils.getResourceAsString(PATH_TO_JSON +"without");
 
         createUserWithTask(requestBody)
                 .then()

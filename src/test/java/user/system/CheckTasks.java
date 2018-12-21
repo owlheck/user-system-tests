@@ -7,10 +7,12 @@ import static user.system.setups.RestSetups.createUserWithTask;
 import static user.system.utils.Utils.getResourceAsString;
 
 
-public class CheckTasks extends Base{
+public class CheckTasks extends Base {
+    private static final String PATH_TO_JSON = "request-bodies/tasks/";
+
     @Test
     public void shouldRespondWithErrorForSixTasks() {
-        String requestBody = getResourceAsString("request-bodies/tasks/unacceptable-count");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "unacceptable-count");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
@@ -22,7 +24,7 @@ public class CheckTasks extends Base{
 
     @Test
     public void shouldRespondWithErrorForInvalidType() {
-        String requestBody = getResourceAsString("request-bodies/tasks/invalid");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "invalid");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
@@ -34,7 +36,7 @@ public class CheckTasks extends Base{
 
     @Test
     public void shouldRespondWithErrorForTaskWithoutName() {
-        String requestBody = getResourceAsString("request-bodies/tasks/task-without-name");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "without-name");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
@@ -46,7 +48,7 @@ public class CheckTasks extends Base{
 
     @Test
     public void shouldRespondWithErrorForTaskWithoutDescription() {
-        String requestBody = getResourceAsString("request-bodies/tasks/task-without-description");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "without-description");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)

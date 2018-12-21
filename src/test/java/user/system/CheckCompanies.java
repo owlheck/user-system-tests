@@ -8,9 +8,11 @@ import static user.system.utils.Utils.getResourceAsString;
 
 
 public class CheckCompanies extends Base {
+    private static final String PATH_TO_JSON = "request-bodies/companies/";
+
     @Test
     public void shouldRespondWithErrorForMoreThanThreeCompanies() {
-        String requestBody = getResourceAsString("request-bodies/companies/unacceptable-count");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "unacceptable-count");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
@@ -22,7 +24,7 @@ public class CheckCompanies extends Base {
 
     @Test
     public void shouldRespondWithErrorIfCompanyDoesNotExist() {
-        String requestBody = getResourceAsString("request-bodies/companies/not-exists");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "not-exists");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
@@ -34,13 +36,13 @@ public class CheckCompanies extends Base {
 
     @Test
     public void shouldRespondWithErrorForInvalidType() {
-        String requestBody = getResourceAsString("request-bodies/companies/invalid");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "invalid");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
                 .body("type", equalTo("error"))
-                .body("message", equalTo(""));
+                .body("message", equalTo("Параметр companies должен быть массивом интеджеров"));
     }
 }

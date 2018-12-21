@@ -8,9 +8,11 @@ import static user.system.utils.Utils.getResourceAsString;
 
 
 public class CheckName extends Base {
+    private static final String PATH_TO_JSON = "request-bodies/name/";
+
     @Test
     public void shouldRespondWithErrorForRequestWithIncorrectName() {
-        String requestBody = getResourceAsString("request-bodies/name/invalid");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "invalid");
         requestBody = String.format(requestBody, getRandomEmail());
 
         createUserWithTask(requestBody)
@@ -22,7 +24,7 @@ public class CheckName extends Base {
 
     @Test
     public void shouldRespondWithErrorForRequestWithAlreadyRegisteredName() {
-        String requestBody = getResourceAsString("request-bodies/name/duplicate");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "duplicate");
         String name = getRandomName();
         requestBody = String.format(requestBody, getRandomEmail(), name);
 
@@ -31,7 +33,7 @@ public class CheckName extends Base {
                 .statusCode(200)
                 .body("name", equalTo(name));
 
-        requestBody = getResourceAsString("request-bodies/name/duplicate");
+        requestBody = getResourceAsString(PATH_TO_JSON + "duplicate");
         requestBody = String.format(requestBody, getRandomEmail(), name);
 
         createUserWithTask(requestBody)
@@ -43,7 +45,7 @@ public class CheckName extends Base {
 
     @Test
     public void shouldRespondWithErrorForRequestWithoutName() {
-        String requestBody = getResourceAsString("request-bodies/name/without");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "without");
         requestBody = String.format(requestBody, getRandomEmail());
 
         createUserWithTask(requestBody)
