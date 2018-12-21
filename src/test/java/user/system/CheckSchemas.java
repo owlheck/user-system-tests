@@ -9,7 +9,7 @@ import static user.system.utils.Utils.getResourceAsString;
 
 public class CheckSchemas extends Base{
     @Test
-    public void shouldRespondWithOkAndMatchSchema() {
+    public void shouldRespondWithOkAndMatchSchemaForRequiredFields() {
         String requestBody = getResourceAsString("request-bodies/required-fields");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 

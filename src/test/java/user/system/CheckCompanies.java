@@ -21,7 +21,7 @@ public class CheckCompanies extends Base {
     }
 
     @Test
-    public void shouldRespondWithErrorForNotExistsCompany() {
+    public void shouldRespondWithErrorIfCompanyDoesNotExist() {
         String requestBody = getResourceAsString("request-bodies/companies/not-exists");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
@@ -33,7 +33,7 @@ public class CheckCompanies extends Base {
     }
 
     @Test
-    public void shouldRespondWithErrorForInvalid() {
+    public void shouldRespondWithErrorForInvalidType() {
         String requestBody = getResourceAsString("request-bodies/companies/invalid");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
