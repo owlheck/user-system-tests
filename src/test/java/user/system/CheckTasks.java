@@ -43,7 +43,7 @@ public class CheckTasks extends Base {
                 .then()
                 .statusCode(200)
                 .body("type", equalTo("error"))
-                .body("message", equalTo("tasks.title не может быть пустым"));
+                .body("message", equalTo(" tasks.title не может быть пустым"));
     }
 
     @Test
