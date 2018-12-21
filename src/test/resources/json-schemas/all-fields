@@ -68,7 +68,9 @@
 			"type": "string"
 		},
 		"inn": {
-			"type": "string"
+			"type": "string",
+			"minLength": 12,
+			"maxLength": 12
 		},
 		"gender": {
 			"type": "string"
