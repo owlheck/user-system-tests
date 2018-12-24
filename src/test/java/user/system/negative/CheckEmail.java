@@ -109,6 +109,18 @@ public class CheckEmail extends Base {
     }
 
     @Test
+    public void shouldRespondWithErrorForEmailWithSeveralDots() {
+        String requestBody = getResourceAsString(PATH_TO_JSON + "invalid/several-dots");
+
+
+        createUserWithTask(requestBody)
+                .then()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("email неправильный!"));
+    }
+
+    @Test
     public void shouldRespondWithErrorForAlreadyRegisteredEmail() {
         String requestBody = getResourceAsString(PATH_TO_JSON + "duplicate");
         String email = getRandomEmail();
