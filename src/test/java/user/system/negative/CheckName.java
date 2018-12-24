@@ -1,6 +1,7 @@
-package user.system;
+package user.system.negative;
 
 import org.junit.Test;
+import user.system.Base;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static user.system.setups.RestSetups.createUserWithTask;

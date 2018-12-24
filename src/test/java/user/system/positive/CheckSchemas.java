@@ -1,6 +1,7 @@
-package user.system;
+package user.system.positive;
 
 import org.junit.Test;
+import user.system.Base;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static user.system.setups.RestSetups.createUserWithTask;
