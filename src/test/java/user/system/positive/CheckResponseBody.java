@@ -3,7 +3,6 @@ package user.system.positive;
 import org.junit.Test;
 import user.system.Base;
 
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static user.system.setups.RestSetups.createUserWithTask;
@@ -41,7 +40,6 @@ public class CheckResponseBody extends Base {
 
         createUserWithTask(requestBody)
                 .then()
-                .log().all()
                 .statusCode(200)
                 .body("name", equalTo(name))
                 .body("name1", equalTo("TestName"))
