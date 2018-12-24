@@ -46,4 +46,18 @@ public class CheckCompanies extends Base {
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Параметр companies должен быть массивом интеджеров"));
     }
+
+    @Test
+    // Test is fallen. There is no check for int value range.
+    public void shouldRespondWithErrorForValueBiggerThanInt() {
+        String requestBody = getResourceAsString(PATH_TO_JSON + "bigger-than-int");
+        requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
+
+        createUserWithTask(requestBody)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Параметр companies должен быть массивом интеджеров"));
+    }
 }

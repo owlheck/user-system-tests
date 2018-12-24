@@ -58,6 +58,7 @@ public class CheckResponseBody extends Base {
                 .body("email", equalTo(email))
                 .body("by_user",  equalTo("manager@mail.ru"))
                 .body("companies.name", hasItems("TestCompany3", "TestCompany1", "TestCompany"))
+                .body("companies.id", hasItems(1285, 1289, 1290))
                 .body("date", equalTo(getCurrentDate()))
                 .body("role", hasItems("user"))
                 .body("tasks.name", hasItems("First Task", "Second Task"));
