@@ -14,7 +14,7 @@ public class CheckCompanies extends Base {
 
     @Test
     public void shouldRespondWithOneCompany() {
-        String requestBody = getResourceAsString(PATH_TO_JSON + "add-one-company");
+        String requestBody = getResourceAsString(PATH_TO_JSON + "add-one");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
 
         createUserWithTask(requestBody)

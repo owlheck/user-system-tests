@@ -48,7 +48,7 @@ public class CheckCompanies extends Base {
     }
 
     @Test
-    // Test is fallen. There is no check for int value range.
+    // Test is fallen. Backend has no check for int value range.
     public void shouldRespondWithErrorForValueBiggerThanInt() {
         String requestBody = getResourceAsString(PATH_TO_JSON + "bigger-than-int");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
@@ -59,5 +59,33 @@ public class CheckCompanies extends Base {
                 .statusCode(200)
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Параметр companies должен быть массивом интеджеров"));
+    }
+
+    @Test
+    // Test is fallen. Backend has no check for arr emptiness.
+    public void shouldRespondWithErrorForEmptyArray() {
+        String requestBody = getResourceAsString(PATH_TO_JSON + "empty");
+        requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
+
+        createUserWithTask(requestBody)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Параметр companies должен быть массивом интеджеров"));
+    }
+
+    @Test
+    // Test is fallen. Backend has no check for company existence.
+    public void shouldRespondWithErrorIfOneOfCompanyDoesNotExists() {
+        String requestBody = getResourceAsString(PATH_TO_JSON + "one-of-not-exist");
+        requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
+
+        createUserWithTask(requestBody)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("type", equalTo("error"))
+                .body("message", equalTo("Одной из указанных компаний не существует"));
     }
 }
