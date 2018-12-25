@@ -1,0 +1,11 @@
+{
+	"email": "%s",
+	"name": "%s",
+	"tasks": [
+		{
+			"title": "First Task",
+			"description": "Description for First task"
+		}
+	],
+	"companies": ["1234", "4321"]
+}
