@@ -20,7 +20,6 @@ public class CheckGender extends Base {
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
-                .log().all()
                 .body("gender", equalTo("f"));
     }
 }

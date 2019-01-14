@@ -20,7 +20,6 @@ public class CheckInn extends Base {
         createUserWithTask(requestBody)
                 .then()
                 .statusCode(200)
-                .log().all()
                 .body("inn", equalTo("111111111111"));
     }
 }

@@ -18,11 +18,8 @@ public class CheckEmail extends Base {
         String email = getRandomEmail();
         requestBody = String.format(requestBody, email, getRandomName());
 
-        System.out.println(email);
-
         createUserWithTask(requestBody)
                 .then()
-                .log().all()
                 .statusCode(200)
                 .body("email", equalTo(email));
     }

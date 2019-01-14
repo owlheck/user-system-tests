@@ -12,6 +12,7 @@ public class CheckTasks extends Base {
     private static final String PATH_TO_JSON = "request-bodies/tasks/";
 
     @Test
+    // Test is field because there is no handling for companies count
     public void shouldRespondWithErrorForSixTasks() {
         String requestBody = getResourceAsString(PATH_TO_JSON + "unacceptable-count");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
@@ -48,6 +49,7 @@ public class CheckTasks extends Base {
     }
 
     @Test
+    // Test is failes because there is no handling for existence of description field
     public void shouldRespondWithErrorForTaskWithoutDescription() {
         String requestBody = getResourceAsString(PATH_TO_JSON + "without-description");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());

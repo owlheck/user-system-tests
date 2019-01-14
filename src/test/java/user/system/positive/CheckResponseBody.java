@@ -31,6 +31,7 @@ public class CheckResponseBody extends Base {
 
 
     @Test
+    // Test is failed because field inn is missing
     public void shouldRespondWithOkAndMatchSchemaForAllFields() {
         String requestBody = getResourceAsString("request-bodies/all-fields");
         String name = getRandomName();
@@ -61,6 +62,7 @@ public class CheckResponseBody extends Base {
                 .body("companies.id", hasItems(1285, 1289, 1290))
                 .body("date", equalTo(getCurrentDate()))
                 .body("role", hasItems("user"))
-                .body("tasks.name", hasItems("First Task", "Second Task"));
+                .body("tasks.name", hasItems("First Task", "Second Task"))
+                .body("inn",  equalTo("123456789012"));
     }
 }
