@@ -22,6 +22,7 @@ public class CheckSchemas extends Base {
     }
 
     @Test
+    // Test is failed because field inn is missing
     public void shouldRespondWithOkAndMatchSchemaForAllFields() {
         String requestBody = getResourceAsString("request-bodies/all-fields");
         requestBody = String.format(requestBody, getRandomEmail(), getRandomName());
